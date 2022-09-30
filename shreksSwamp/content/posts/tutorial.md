@@ -8,7 +8,7 @@ date: 2022-09-30T16:13:15+06:00
 Static sites refer to view only webpages. They are widely used for rapid development. Although [Hugo](https://en.wikipedia.org/wiki/Hugo_(software)) can be used to add various functionalities this tutorial will be laser focused on how to get a simple static webpage up and running to display the tutorial assigned to us. 
 ## Prerequisites and Precautions
 - Some knowledge of [git](https://education.github.com/git-cheat-sheet-education.pdf) and the terminal
-- This tutorial was made with gnu/Linux in mind. All steps shown have been done on an Arch-Linux 5.19 kernel system. We shall try to accommodate other Linux distros wherever needed. Users of other "special" OSes are requested to figure out the terminal and other platform specific stuff for themselves.
+- This tutorial was made with gnu/Linux in mind. All steps shown have been done on an Arch-Linux 5.19 kernel system btw. We shall try to accommodate other Linux distros wherever needed. Users of other "special" OSes are requested to figure out the terminal and other platform specific stuff for themselves.
 - A very basic knowledge of markdown. see [here]({{< ref "tutorial.md#step-8-adding-content-to-our-post" >}}).
 - **Angle brackets shown in commands here are for illustrative purposes. Do not keep the angle brackets when actually running the command.  Replace the entire text bound inside the bracket (along with the brackets) with the parameters specified inside the brackets for your specific case.** One exception being Hugo snippets where it has been specified. 
 ## Step 1: Downloading Hugo
@@ -50,8 +50,9 @@ We need the generated website repo (henceforth called genrepo) to be a submodule
 1. Clone the "blog" repository that is the repository that will host the files for Hugo into your local machine by simply running 
 ```bash
 git clone <link to your hugo host repository that is blog repository>
-```
+``` 
 ![git clone](gitclone.png)
+
 2. go into the cloned folder and run 
 ```bash
 hugo new site <sitename>
@@ -97,6 +98,7 @@ author = 'Me'
 theme = 'cactus'
 ```
 Notice the 's' in `https` we want to enforce `https` 
+
 3. Run the following command
 ```bash
 hugo server
@@ -113,6 +115,7 @@ git clone <repo URL>
 git clone 
 ```
 ![genrepo clone](genrepopull.png)
+
 2. add the genrepo as a submodule to your blog directory
 ```bash
 git submodule add -b main <repo URL>
@@ -205,9 +208,10 @@ Let's add the most iconic YouTube video to this page.
 ![youtube link embed](youtubething.png)
 Here the '*id*' part comes from the YouTube link. If you already haven't memorized it, this id comes from this link `https://www.youtube.com/watch?v=dQw4w9WgXcQ` the part after `?v=` is our id. Lets enjoy the video now - 
 {{< youtube id=dQw4w9WgXcQ title="rickroll" >}}
+
 Similarly we can embed tweets or Instagram posts check out [Hugo shortcodes](https://gohugo.io/content-management/shortcodes/) for more.
-Finally, 
-Run the following command
+
+Finally, Run the following command
 ```bash
 hugo server
 ```
@@ -223,6 +227,7 @@ hugo -t <theme name>
 hugo -t cactus
 ```
 You can ignore the warning here. It didn't cause us any issues. (That we comprehend)
+
 2. Clear the submodule 
 ```bash
 rm -rf <name of genrepo>/*
@@ -244,7 +249,9 @@ git push
 ```
 ![gitstuffongenrepo](gitstuffongenrepo.png)
 ![git Push](gitpush.png)
+
 6. Return to your blog repo.
+
 7. Push changes made to blog repo into GitHub
 ```bash
 git add .
@@ -265,6 +272,7 @@ If you want to make changes like adding new posts and/or editing. follow steps 7
 
 ## FAQ
 **Why didn't you use Jekyll or any other generator? Why Hugo?**
+
 You see, Jekyll need at least one more dependency than Hugo(Hugo comes with everything bundled). That is literally it. We chose the path of least resistance.
 
 For further questions [annoy Noki](https://www.facebook.com/mahdimohammad.noki). And we will get back to you soon.

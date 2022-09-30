@@ -214,7 +214,7 @@ Static sites refer to view only webpages. They are widely used for rapid develop
 <h2 id="prerequisites-and-precautions">Prerequisites and Precautions</h2>
 <ul>
 <li>Some knowledge of <a href="https://education.github.com/git-cheat-sheet-education.pdf">git</a> and the terminal</li>
-<li>This tutorial was made with gnu/Linux in mind. All steps shown have been done on an Arch-Linux 5.19 kernel system. We shall try to accommodate other Linux distros wherever needed. Users of other &ldquo;special&rdquo; OSes are requested to figure out the terminal and other platform specific stuff for themselves.</li>
+<li>This tutorial was made with gnu/Linux in mind. All steps shown have been done on an Arch-Linux 5.19 kernel system btw. We shall try to accommodate other Linux distros wherever needed. Users of other &ldquo;special&rdquo; OSes are requested to figure out the terminal and other platform specific stuff for themselves.</li>
 <li>A very basic knowledge of markdown. see <a href="https://sinhSlumbering.github.io/posts/tutorial/#step-8-adding-content-to-our-post">here</a>.</li>
 <li><strong>Angle brackets shown in commands here are for illustrative purposes. Do not keep the angle brackets when actually running the command.  Replace the entire text bound inside the bracket (along with the brackets) with the parameters specified inside the brackets for your specific case.</strong> One exception being Hugo snippets where it has been specified.</li>
 </ul>
@@ -251,8 +251,10 @@ We need the generated website repo (henceforth called genrepo) to be a submodule
 <li>Clone the &ldquo;blog&rdquo; repository that is the repository that will host the files for Hugo into your local machine by simply running</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone &lt;link to your hugo host repository that is blog repository&gt;
-</span></span></code></pre></div><p><img src="gitclone.png" alt="git clone">
-2. go into the cloned folder and run</p>
+</span></span></code></pre></div><p><img src="gitclone.png" alt="git clone"></p>
+<ol start="2">
+<li>go into the cloned folder and run</li>
+</ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo new site &lt;sitename&gt;
 </span></span></code></pre></div><p><img src="hugositesetup.png" alt="hugosetup">
 note that the &ldquo;site name&rdquo; specified here will be the name of your blog site.</p>
@@ -290,8 +292,10 @@ We use the cactus theme in our example.</li>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#39;shrekSwamp&#39;</span> 
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">author</span> = <span style="color:#e6db74">&#39;Me&#39;</span> 
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#39;cactus&#39;</span>
-</span></span></code></pre></div><p>Notice the &rsquo;s&rsquo; in <code>https</code> we want to enforce <code>https</code>
-3. Run the following command</p>
+</span></span></code></pre></div><p>Notice the &rsquo;s&rsquo; in <code>https</code> we want to enforce <code>https</code></p>
+<ol start="3">
+<li>Run the following command</li>
+</ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server
 </span></span></code></pre></div><p><img src="hugoServerSetup.png" alt="hugo server view">
 This will host a static site from your localhost. click on the URL to view the web page in your browser.<br>
@@ -304,8 +308,10 @@ This will host a static site from your localhost. click on the URL to view the w
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone &lt;repo URL&gt;
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># example</span>
 </span></span><span style="display:flex;"><span>git clone 
-</span></span></code></pre></div><p><img src="genrepopull.png" alt="genrepo clone">
-2. add the genrepo as a submodule to your blog directory</p>
+</span></span></code></pre></div><p><img src="genrepopull.png" alt="genrepo clone"></p>
+<ol start="2">
+<li>add the genrepo as a submodule to your blog directory</li>
+</ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git submodule add -b main &lt;repo URL&gt;
 </span></span></code></pre></div><p><img src="submoduleadd.png" alt="adding the repo as a submodule"></p>
 <h2 id="step-7-creating-a-post">Step 7: Creating a post</h2>
@@ -388,10 +394,9 @@ Here the &lsquo;<em>id</em>&rsquo; part comes from the YouTube link. If you alre
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="rickroll"></iframe>
 </div>
-
-Similarly we can embed tweets or Instagram posts check out <a href="https://gohugo.io/content-management/shortcodes/">Hugo shortcodes</a> for more.
-Finally,
-Run the following command</p>
+</p>
+<p>Similarly we can embed tweets or Instagram posts check out <a href="https://gohugo.io/content-management/shortcodes/">Hugo shortcodes</a> for more.</p>
+<p>Finally, Run the following command</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server
 </span></span></code></pre></div><p>To see if your edits show up nicely</p>
 <h2 id="step-9-building-the-website-and-publishing-it-to-github-pages">Step 9: Building the website and publishing it to GitHub pages</h2>
@@ -403,8 +408,10 @@ Run the following command</p>
 </span></span><span style="display:flex;"><span>hugo -t &lt;theme name&gt;
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># example</span>
 </span></span><span style="display:flex;"><span>hugo -t cactus
-</span></span></code></pre></div><p>You can ignore the warning here. It didn&rsquo;t cause us any issues. (That we comprehend)
-2. Clear the submodule</p>
+</span></span></code></pre></div><p>You can ignore the warning here. It didn&rsquo;t cause us any issues. (That we comprehend)</p>
+<ol start="2">
+<li>Clear the submodule</li>
+</ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -rf &lt;name of genrepo&gt;/*
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># example</span>
 </span></span><span style="display:flex;"><span>rm -rf sinhSlumbering.github.io/*
@@ -422,9 +429,15 @@ Run the following command</p>
 </span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;&lt;commit message&gt;&#34;</span>
 </span></span><span style="display:flex;"><span>git push
 </span></span></code></pre></div><p><img src="gitstuffongenrepo.png" alt="gitstuffongenrepo">
-<img src="gitpush.png" alt="git Push">
-6. Return to your blog repo.
-7. Push changes made to blog repo into GitHub</p>
+<img src="gitpush.png" alt="git Push"></p>
+<ol start="6">
+<li>
+<p>Return to your blog repo.</p>
+</li>
+<li>
+<p>Push changes made to blog repo into GitHub</p>
+</li>
+</ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git add .
 </span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;&lt;commit message&gt;&#34;</span>
 </span></span><span style="display:flex;"><span>git push
@@ -445,8 +458,8 @@ Run the following command</p>
 <p>&ldquo;These things, they take time&rdquo; -GabeN</p>
 </blockquote>
 <h2 id="faq">FAQ</h2>
-<p><strong>Why didn&rsquo;t you use Jekyll or any other generator? Why Hugo?</strong>
-You see, Jekyll need at least one more dependency than Hugo(Hugo comes with everything bundled). That is literally it. We chose the path of least resistance.</p>
+<p><strong>Why didn&rsquo;t you use Jekyll or any other generator? Why Hugo?</strong></p>
+<p>You see, Jekyll need at least one more dependency than Hugo(Hugo comes with everything bundled). That is literally it. We chose the path of least resistance.</p>
 <p>For further questions <a href="https://www.facebook.com/mahdimohammad.noki">annoy Noki</a>. And we will get back to you soon.</p>
 <h2 id="references">References</h2>
 <ul>
