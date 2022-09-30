@@ -8,12 +8,13 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 30 Sep 2022 16:13:15 +0600</lastBuildDate><atom:link href="https://sinhSlumbering.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Tutorial</title>
+      <title>Static Webpage Tutorial</title>
       <link>https://sinhSlumbering.github.io/posts/tutorial/</link>
       <pubDate>Fri, 30 Sep 2022 16:13:15 +0600</pubDate>
       
       <guid>https://sinhSlumbering.github.io/posts/tutorial/</guid>
-      <description></description>
+      <description>Making a simple yet powerful blog using Hugo and Github pages: In this tutorial we will walk you through how to make a simple static webpage using GitHub pages and hugo
+Static sites refer to view only webpages. They are widely used for rapid development. Although Hugo can be used to add various functionalities this tutorial will be laser focused on how to get a simple static webpage up and running to display the tutorial assigned to us.</description>
     </item>
     
   </channel>

@@ -3,3 +3,8 @@ languageCode = 'en-us'
 title = 'shrekSwamp'
 author = 'vk1cd314, sinhSlumbering, notmasterda'
 theme = 'cactus'
+[params]
+  minimal = false
+  excerpts = false
+  colortheme = 'dark'
+  description = "Somebody once told me the world is gonna roll me"
