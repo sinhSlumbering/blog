@@ -1,0 +1,5 @@
+baseURL = 'https://sinhSlumbering.github.io/'
+languageCode = 'en-us'
+title = 'shrekSwamp'
+author = 'vk1cd314, sinhSlumbering, notmasterda'
+theme = 'cactus'

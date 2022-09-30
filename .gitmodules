@@ -1,0 +1,4 @@
+[submodule "shreksSwamp/sinhSlumbering.github.io"]
+	path = shreksSwamp/sinhSlumbering.github.io
+	url = https://github.com/sinhSlumbering/sinhSlumbering.github.io
+	branch = main
