@@ -252,6 +252,7 @@ git push
 
 6. Return to your blog repo.
 
+
 7. Push changes made to blog repo into GitHub
 ```bash
 git add .

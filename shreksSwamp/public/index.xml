@@ -6,7 +6,17 @@
     <description>Recent content on shrekSwamp</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Sep 2022 16:13:15 +0600</lastBuildDate><atom:link href="https://sinhSlumbering.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 21 Oct 2022 20:27:55 +0600</lastBuildDate><atom:link href="https://sinhSlumbering.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SearchTutorial</title>
+      <link>https://sinhSlumbering.github.io/posts/searchtutorial/</link>
+      <pubDate>Fri, 21 Oct 2022 20:27:55 +0600</pubDate>
+      
+      <guid>https://sinhSlumbering.github.io/posts/searchtutorial/</guid>
+      <description>Search Views in Android In this tutorial we will show a few simple ways to implement search in your app. There are a lot of ways to implement search functionalities, each with it&amp;rsquo;s strengths and weaknesses but we shall focus on the core functionalities of the search views.
+Prerequisites This tutorial is done in Kotlin, but you should be able to easily implement these ideas in java. The Minimum SDK was selected as API 29 Some knowledge of view layouts in android.</description>
+    </item>
+    
     <item>
       <title>Static Webpage Tutorial</title>
       <link>https://sinhSlumbering.github.io/posts/tutorial/</link>

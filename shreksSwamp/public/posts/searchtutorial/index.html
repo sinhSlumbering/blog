@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <link rel="preload" href="/lib/font-awesome/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/lib/font-awesome/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/lib/font-awesome/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="/lib/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <script type="text/javascript" src="https://latest.cactus.chat/cactus.js"></script>
+  <link rel="stylesheet" href="https://latest.cactus.chat/style.css" type="text/css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> SearchTutorial | shrekSwamp</title>
+  <link rel = 'canonical' href = 'https://sinhSlumbering.github.io/posts/searchtutorial/'>
+  <meta name="description" content="Somebody once told me the world is gonna roll me">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta property="og:title" content="SearchTutorial" />
+<meta property="og:description" content="Search Views in Android In this tutorial we will show a few simple ways to implement search in your app. There are a lot of ways to implement search functionalities, each with it&rsquo;s strengths and weaknesses but we shall focus on the core functionalities of the search views.
+Prerequisites This tutorial is done in Kotlin, but you should be able to easily implement these ideas in java. The Minimum SDK was selected as API 29 Some knowledge of view layouts in android." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sinhSlumbering.github.io/posts/searchtutorial/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-21T20:27:55+06:00" />
+<meta property="article:modified_time" content="2022-10-21T20:27:55+06:00" />
+
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SearchTutorial"/>
+<meta name="twitter:description" content="Search Views in Android In this tutorial we will show a few simple ways to implement search in your app. There are a lot of ways to implement search functionalities, each with it&rsquo;s strengths and weaknesses but we shall focus on the core functionalities of the search views.
+Prerequisites This tutorial is done in Kotlin, but you should be able to easily implement these ideas in java. The Minimum SDK was selected as API 29 Some knowledge of view layouts in android."/>
+
+  
+  
+    
+  
+  
+  <link rel="stylesheet" href="https://sinhSlumbering.github.io/css/styles.c05d68261bf086a9d7713c4f8a6215a3601608e267a816a7ee58f139b3d1aae51222aae2081c8e0c6bd35e1334773b7a16283022f31f92afd93bb37e5e822e66.css" integrity="sha512-wF1oJhvwhqnXcTxPimIVo2AWCOJnqBan7ljxObPRquUSIqriCByODGvTXhM0dzt6FigwIvMfkq/ZO7N&#43;XoIuZg=="> 
+
+  
+  
+  
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+<link rel="icon" type="image/png" href="https://sinhSlumbering.github.io/images/favicon.ico" />
+
+  
+  
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+  <div class="content index py4">
+
+  <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;" aria-label="Top of Page"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li>
+          <a class="icon" href=" https://sinhSlumbering.github.io/posts/tutorial/" aria-label="Previous">
+            <i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i>
+          </a>
+        </li>
+        
+        
+        <li>
+          <a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" aria-label="Top of Page">
+            <i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i>
+          </a>
+        </li>
+        <li>
+          <a class="icon" href="#" aria-label="Share">
+            <i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i>
+          </a>
+        </li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f" aria-label="Facebook">
+      <i class="fab fa-facebook " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&text=SearchTutorial" aria-label="Twitter">
+      <i class="fab fa-twitter " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&title=SearchTutorial" aria-label="Linkedin">
+      <i class="fab fa-linkedin " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&is_video=false&description=SearchTutorial" aria-label="Pinterest">
+      <i class="fab fa-pinterest " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=SearchTutorial&body=Check out this article: https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f" aria-label="Email">
+      <i class="fas fa-envelope " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&title=SearchTutorial" aria-label="Pocket">
+      <i class="fab fa-get-pocket " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&title=SearchTutorial" aria-label="reddit">
+      <i class="fab fa-reddit " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&name=SearchTutorial&description=Search%20Views%20in%20Android%20In%20this%20tutorial%20we%20will%20show%20a%20few%20simple%20ways%20to%20implement%20search%20in%20your%20app.%20There%20are%20a%20lot%20of%20ways%20to%20implement%20search%20functionalities%2c%20each%20with%20it%26rsquo%3bs%20strengths%20and%20weaknesses%20but%20we%20shall%20focus%20on%20the%20core%20functionalities%20of%20the%20search%20views.%0aPrerequisites%20This%20tutorial%20is%20done%20in%20Kotlin%2c%20but%20you%20should%20be%20able%20to%20easily%20implement%20these%20ideas%20in%20java.%20The%20Minimum%20SDK%20was%20selected%20as%20API%2029%20Some%20knowledge%20of%20view%20layouts%20in%20android." aria-label="Tumblr">
+      <i class="fab fa-tumblr " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&t=SearchTutorial" aria-label="Hacker News">
+      <i class="fab fa-hacker-news " aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+    
+    <div id="toc">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#set-up">Set up</a>
+      <ul>
+        <li><a href="#enable-viewbinding">Enable viewBinding</a></li>
+      </ul>
+    </li>
+    <li><a href="#using-this-guide">Using this guide</a>
+      <ul>
+        <li><a href="#example-project">Example project</a></li>
+      </ul>
+    </li>
+    <li><a href="#search-view-in-main-layout-of-the-activity">Search View in main layout of the activity</a></li>
+    <li><a href="#autocompletetextview-with-dropdown">AutocompleteTextView with dropdown</a></li>
+    <li><a href="#search-view-in-top-bar">Search View in Top Bar</a></li>
+    <li><a href="#extensions">Extensions</a></li>
+    <li><a href="#precautions">Precautions</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#github-for-example-project">GitHub for example project</a></li>
+  </ul>
+</nav>
+    </div>
+    
+  </span>
+</div>
+
+
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+      <h1 class="posttitle" itemprop="name headline">
+        SearchTutorial
+      </h1>
+      <div class="meta">
+        
+        <div class="postdate">
+          
+          <time datetime="2022-10-21 20:27:55 &#43;0600 &#43;06" itemprop="datePublished">2022-10-21</time>
+          
+        </div>
+        
+        
+        
+        
+      </div>
+    </header>
+
+  
+    
+    <div class="content" itemprop="articleBody">
+      <h1 id="search-views-in-android">Search Views in Android</h1>
+<p>In this tutorial we will show a few simple ways to implement search in your app. There are a lot of ways to implement search functionalities, each with it&rsquo;s strengths and weaknesses but we shall focus on the core functionalities of the search views.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ol>
+<li>This tutorial is done in Kotlin, but you should be able to easily implement these ideas in java.</li>
+<li>The Minimum SDK was selected as API 29</li>
+<li>Some knowledge of view layouts in android.</li>
+<li>We are assuming that you are comfortable working with viewbindings</li>
+<li>We are assuming that you are adding this to an Activity of an existing project so initial setup discussion is kept at a minimum</li>
+</ol>
+<h2 id="set-up">Set up</h2>
+<h3 id="enable-viewbinding">Enable viewBinding</h3>
+<ol>
+<li>Go to your <code>build.gradle</code>  file and add the following to the file</li>
+</ol>
+<pre tabindex="0"><code>buildFeatures {  
+    viewBinding = true  
+}
+</code></pre><p>ViewBindings autogenerate classes from the layout so that we can easily work with them where needed. This makes finding and referring to views much easier and intuitive.</p>
+<h2 id="using-this-guide">Using this guide</h2>
+<h3 id="example-project">Example project</h3>
+<p>An example of the project can be found <a href="https://github.com/sinhSlumbering/Search-View-Tutorial">here</a>
+Here the main activity has 3 buttons linked to 3 different activities</p>
+<ol>
+<li>Search View inside the layout of the Activity</li>
+<li>AutocompleteTextView with dropdown</li>
+<li>Search View in Top Bar
+You can choose to follow whatever you like the relevant files to check are the Activity and the layout associated with it. We prefer the Top Bar search as it is the fastest and most reliable.</li>
+</ol>
+<h2 id="search-view-in-main-layout-of-the-activity">Search View in main layout of the activity</h2>
+<ol>
+<li><strong>Create an empty activity and edit layout as you prefer</strong> - For this part we have created a LinearLayout with a SearchView and ListView for an Activity named &ldquo;SearchViewExample&rdquo; as apparent in the context. The layout must contain an <code>androidx.appcompat.widget.SearchView</code> to search in and a view of your choice to show the results</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;LinearLayout</span> <span style="color:#a6e22e">xmlns:android=</span><span style="color:#e6db74">&#34;http://schemas.android.com/apk/res/android&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:app=</span><span style="color:#e6db74">&#34;http://schemas.android.com/apk/res-auto&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:tools=</span><span style="color:#e6db74">&#34;http://schemas.android.com/tools&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:orientation=</span><span style="color:#e6db74">&#34;vertical&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tools:context=</span><span style="color:#e6db74">&#34;.SearchViewExample&#34;</span><span style="color:#f92672">&gt;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;androidx.appcompat.widget.SearchView</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:id=</span><span style="color:#e6db74">&#34;@+id/searchinmainbod&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;wrap_content&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_marginTop=</span><span style="color:#e6db74">&#34;10dp&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">app:queryHint=</span><span style="color:#e6db74">&#34;Search&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_marginBottom=</span><span style="color:#e6db74">&#34;10dp&#34;</span><span style="color:#f92672">/&gt;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ListView</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:id=</span><span style="color:#e6db74">&#34;@+id/listView1&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;wrap_content&#34;</span><span style="color:#f92672">/&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/LinearLayout&gt;</span>
+</span></span></code></pre></div><ol start="2">
+<li><strong>Initialize a binding and a List of objects</strong> - The binding initialization should be straight forward as they are auto generated and for simplicity&rsquo;s sake we have initialized an array of strings to search through.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SearchViewExample</span> : AppCompatActivity() {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">lateinit</span> <span style="color:#66d9ef">var</span> binding: ActivitySearchviewExampleBinding  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> names = listOf(<span style="color:#e6db74">&#34;Bayern Munich&#34;</span>, <span style="color:#e6db74">&#34;Barcelona&#34;</span>, <span style="color:#e6db74">&#34;Dortmund&#34;</span>, <span style="color:#e6db74">&#34;Real Madrid&#34;</span>, <span style="color:#e6db74">&#34;Paris Saint Germain&#34;</span>, <span style="color:#e6db74">&#34;West Ham&#34;</span>, <span style="color:#e6db74">&#34;Roma&#34;</span>, <span style="color:#e6db74">&#34;Chelsea&#34;</span>, <span style="color:#e6db74">&#34;Wigan Athletic&#34;</span>, <span style="color:#e6db74">&#34;Charlton&#34;</span>, <span style="color:#e6db74">&#34;Saint Ettiene&#34;</span>, <span style="color:#e6db74">&#34;Liverpool&#34;</span>)
+</span></span><span style="display:flex;"><span>    .
+</span></span><span style="display:flex;"><span>    .
+</span></span><span style="display:flex;"><span>    .
+</span></span><span style="display:flex;"><span>   }
+</span></span></code></pre></div><ol start="3">
+<li><strong>Add the list view adapter</strong>- Since we are using a simple array of strings we can initialize and assign a list view adapter by -</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> adaptername: ArrayAdapter&lt;String&gt; = ArrayAdapter(context, layout, arrayOfValues)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//example
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> arrAdapter: ArrayAdapter&lt;String&gt; = ArrayAdapter(<span style="color:#66d9ef">this</span>, android.R.layout.simple_list_item_1, names)    
+</span></span><span style="display:flex;"><span>binding.listView1.adapter = arrAdapter
+</span></span></code></pre></div><p>We can make a custom adapter for the listview which takes a custom object. This should be familiar if one has worked with recyclerviews. The <code>simple_list_item_1</code> is a built in layout.
+4. <strong>Filtering the listView</strong>- We refer to the searchview from the binding and add an <code>OnQueryTextListener</code> . We do this in the example by -</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>binding.searchinmainbod.setOnQueryTextListener(<span style="color:#66d9ef">object</span>: androidx.appcompat.widget.SearchView.OnQueryTextListener{})
+</span></span></code></pre></div><p>However writing this will give us an error. Which we will mitigate by implementing the member functions for the interface</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>binding.searchinmainbod.setOnQueryTextListener(<span style="color:#66d9ef">object</span>: androidx.appcompat.widget.SearchView.OnQueryTextListener{  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextSubmit</span>(query: String?): Boolean {  
+</span></span><span style="display:flex;"><span>		TODO(<span style="color:#e6db74">&#34;Not yet implemented&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//filter logic goes here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextChange</span>(query: String?): Boolean {  
+</span></span><span style="display:flex;"><span>        TODO(<span style="color:#e6db74">&#34;Not yet implemented&#34;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//filter logic goes here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }  
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>The desired filter logic for your purpose should be implemented here. <code>OnQueryTextSubmit</code> will implement the logic after the user submits the query while <code>OnQueryTextChange</code> will implement the logic after every letter gets changed</p>
+<p>In this example we have filtered it as follows,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>binding.searchinmainbod.setOnQueryTextListener(<span style="color:#66d9ef">object</span>: androidx.appcompat.widget.SearchView.OnQueryTextListener{  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextSubmit</span>(query: String?): Boolean {  
+</span></span><span style="display:flex;"><span>		binding.searchinmainbod.clearFocus()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(query<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span>){
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span>(names.contains(query)){
+</span></span><span style="display:flex;"><span>				arrAdapter.filter.filter(query)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextChange</span>(query: String?): Boolean {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(names.contains(query)){
+</span></span><span style="display:flex;"><span>        arrAdapter.filter.filter(query)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>Here we use the filter of the filterable adapter to filter out the Strings that match the query. You can write custom filterable adapter or change the adapter if you want. in the <code>OnQuerySubmit</code> method notice that we clearFocus from the search view. This is to return focus to activity after the search is done, that is the users clicks search.</p>
+<ol start="5">
+<li><strong>Finished Activity</strong>- our finished example looks something like this</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SearchviewExample</span> : AppCompatActivity() {  
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//declaring the binding
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">lateinit</span> <span style="color:#66d9ef">var</span> binding: ActivitySearchviewExampleBinding 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//declaring the array to be filtered 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> names = listOf(<span style="color:#e6db74">&#34;Bayern Munich&#34;</span>, <span style="color:#e6db74">&#34;Barcelona&#34;</span>, <span style="color:#e6db74">&#34;Dortmund&#34;</span>, <span style="color:#e6db74">&#34;Real Madrid&#34;</span>, <span style="color:#e6db74">&#34;Paris Saint Germain&#34;</span>, <span style="color:#e6db74">&#34;West Ham&#34;</span>, <span style="color:#e6db74">&#34;Roma&#34;</span>, <span style="color:#e6db74">&#34;Chelsea&#34;</span>, <span style="color:#e6db74">&#34;Wigan Athletic&#34;</span>, <span style="color:#e6db74">&#34;Charlton&#34;</span>, <span style="color:#e6db74">&#34;Saint Ettiene&#34;</span>, <span style="color:#e6db74">&#34;Liverpool&#34;</span>)  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onCreate</span>(savedInstanceState: Bundle?) {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.onCreate(savedInstanceState)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//initializing the binding  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        binding = ActivitySearchviewExampleBinding.inflate(layoutInflater)  
+</span></span><span style="display:flex;"><span>        setContentView(binding.root)  
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//declaring the array adapter for listview
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">val</span> arrAdapter: ArrayAdapter&lt;String&gt; = ArrayAdapter(<span style="color:#66d9ef">this</span>, android.R.layout.simple_list_item_1, names)  
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//providing the adapter to the listview
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        binding.listView1.adapter = arrAdapter  
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//filtering using the searchview
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		binding.searchinmainbod.setOnQueryTextListener(<span style="color:#66d9ef">object</span>: androidx.appcompat.widget.SearchView.OnQueryTextListener{  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextSubmit</span>(query: String?): Boolean {  
+</span></span><span style="display:flex;"><span>		binding.searchinmainbod.clearFocus()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span>(query<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span>){
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span>(names.contains(query)){
+</span></span><span style="display:flex;"><span>				arrAdapter.filter.filter(query)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextChange</span>(query: String?): Boolean {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(names.contains(query)){
+</span></span><span style="display:flex;"><span>        arrAdapter.filter.filter(query)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="search_view.png" alt="Search view"></p>
+<h2 id="autocompletetextview-with-dropdown">AutocompleteTextView with dropdown</h2>
+<ol>
+<li><strong>Create an empty activity and edit layout as you prefer</strong> - For this part we have created a LinearLayout with an AutoCompleteTextView and ListView for an Activity named &ldquo;AutoCompleteSearch&rdquo; as apparent in the context. We also add a search button to filter the listview.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;LinearLayout</span> <span style="color:#a6e22e">xmlns:android=</span><span style="color:#e6db74">&#34;http://schemas.android.com/apk/res/android&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:app=</span><span style="color:#e6db74">&#34;http://schemas.android.com/apk/res-auto&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:tools=</span><span style="color:#e6db74">&#34;http://schemas.android.com/tools&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:orientation=</span><span style="color:#e6db74">&#34;vertical&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tools:context=</span><span style="color:#e6db74">&#34;.AutocompleteSearch&#34;</span><span style="color:#f92672">&gt;</span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;AutoCompleteTextView</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:id=</span><span style="color:#e6db74">&#34;@+id/autoCompleteTextView1&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;wrap_content&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:text=</span><span style="color:#e6db74">&#34;Search&#34;</span> <span style="color:#f92672">/&gt;</span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Button</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:id=</span><span style="color:#e6db74">&#34;@+id/search_button&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;wrap_content&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:text=</span><span style="color:#e6db74">&#34;Search&#34;</span> <span style="color:#f92672">/&gt;</span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ListView</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:id=</span><span style="color:#e6db74">&#34;@+id/listView2&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;match_parent&#34;</span> <span style="color:#f92672">/&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/LinearLayout&gt;</span>
+</span></span></code></pre></div><ol start="2">
+<li><strong>Initialize a binding and a List of objects</strong> - The binding initialization should be straight forward as they are auto generated and for simplicity&rsquo;s sake we have initialized an array of strings to search through.</li>
+<li><strong>Add the list view adapter</strong>- Since we are using a simple array of strings we can initialize and assign a list view adapter by -</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> adaptername: ArrayAdapter&lt;String&gt; = ArrayAdapter(context, layout, arrayOfValues)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//example
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> listAdapter: ArrayAdapter&lt;String&gt; = ArrayAdapter(<span style="color:#66d9ef">this</span>, android.R.layout.simple_list_item_1, names)    
+</span></span><span style="display:flex;"><span>binding.listView2.adapter = listAdapter
+</span></span></code></pre></div><p>We can make a custom adapter for the listview which takes a custom object. This should be familiar if one has worked with recyclerviews. The <code>simple_list_item_1</code> is a built in layout.
+4. <strong>Add the search view adapter</strong>- In order for the suggestions to show up we must provide an adapter. This step is similar to the step above except the fact that we have to pass the adapter through a method</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> srcAdapter = ArrayAdapter(<span style="color:#66d9ef">this</span>, android.R.layout.simple_list_item_1, names)
+</span></span><span style="display:flex;"><span>binding.autoCompleteTextView1.setAdapter(srcAdapter)
+</span></span></code></pre></div><ol start="5">
+<li><strong>Filtering the list</strong>- we add an on click listener to out search button, get the string from the AutoCompleteTextView and filter as needed</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>binding.searchButton.setOnClickListener{
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">val</span> st = binding.autoCompleteTextView1.text.toString()
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//filter logic goes here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>the finished example looks something like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AutocompleteSearch</span> : AppCompatActivity() {  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//declaring the binding  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">lateinit</span> <span style="color:#66d9ef">var</span> binding: ActivityAutocompleteSearchBinding  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//declaring the array to be filtered  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> names = listOf(<span style="color:#e6db74">&#34;Bayern Munich&#34;</span>, <span style="color:#e6db74">&#34;Barcelona&#34;</span>, <span style="color:#e6db74">&#34;Dortmund&#34;</span>, <span style="color:#e6db74">&#34;Real Madrid&#34;</span>, <span style="color:#e6db74">&#34;Paris Saint Germain&#34;</span>, <span style="color:#e6db74">&#34;West Ham&#34;</span>, <span style="color:#e6db74">&#34;Roma&#34;</span>, <span style="color:#e6db74">&#34;Chelsea&#34;</span>, <span style="color:#e6db74">&#34;Wigan Athletic&#34;</span>, <span style="color:#e6db74">&#34;Charlton&#34;</span>, <span style="color:#e6db74">&#34;Saint Ettiene&#34;</span>, <span style="color:#e6db74">&#34;Liverpool&#34;</span>)  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onCreate</span>(savedInstanceState: Bundle?) {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.onCreate(savedInstanceState)  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//initializing the binding  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        binding = ActivityAutocompleteSearchBinding.inflate(layoutInflater)  
+</span></span><span style="display:flex;"><span>        setContentView(binding.root)  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//declaring the array adapter for autocompletetextview  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> srcAdapter = ArrayAdapter(<span style="color:#66d9ef">this</span>, R.layout.simple_list_item_1, names)  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//declaring the array adapter for listview  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> listAdapter = ArrayAdapter(<span style="color:#66d9ef">this</span>, R.layout.simple_list_item_1, names)  
+</span></span><span style="display:flex;"><span>        binding.autoCompleteTextView1.threshold = <span style="color:#ae81ff">1</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//providing the adapter to the searchview  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        binding.autoCompleteTextView1.setAdapter(srcAdapter)  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//providing the adapter to the listview  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        binding.listView2.adapter = listAdapter  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//filtering results on click of button  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        binding.searchButton.setOnClickListener {  
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">val</span> st = binding.autoCompleteTextView1.text.toString()  
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(names.contains(st)) {  
+</span></span><span style="display:flex;"><span>                listAdapter.filter.filter(st)  
+</span></span><span style="display:flex;"><span>            }        
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Here the threshold refers to the number of letters that should be typed before the dropdown is shown.<img src="autocomptext.png" alt="auto comp view">
+<img src="droppedown.png" alt="dropped down"></p>
+<h2 id="search-view-in-top-bar">Search View in Top Bar</h2>
+<ol>
+<li><strong>Create an empty activity and edit layout as you prefer</strong> - For this part we have created a constraint layout with a ListView inside it all matching parent dimensions for an Activity named &ldquo;TopBarSearch&rdquo; as apparent in the context.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;androidx.constraintlayout.widget.ConstraintLayout</span> <span style="color:#a6e22e">xmlns:android=</span><span style="color:#e6db74">&#34;http://schemas.android.com/apk/res/android&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:app=</span><span style="color:#e6db74">&#34;http://schemas.android.com/apk/res-auto&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:tools=</span><span style="color:#e6db74">&#34;http://schemas.android.com/tools&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tools:context=</span><span style="color:#e6db74">&#34;.TopBarSearch&#34;</span><span style="color:#f92672">&gt;</span>  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ListView</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:id=</span><span style="color:#e6db74">&#34;@+id/topBarLstView&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_width=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:layout_height=</span><span style="color:#e6db74">&#34;match_parent&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">app:layout_constraintStart_toStartOf=</span><span style="color:#e6db74">&#34;parent&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">app:layout_constraintTop_toTopOf=</span><span style="color:#e6db74">&#34;parent&#34;</span> <span style="color:#f92672">/&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</span>
+</span></span></code></pre></div><ol start="2">
+<li><strong>Create a menu resource file</strong> - Right click the <code>res</code> folder in the project tab of android studio and go to <code>New -&gt; Android Resource File</code> here provide the name for your menu and select the resource type as <code>menu</code>. OR click on the <code>Resource Manager</code> tab on the right and select menu from the overflow menu and click on the &lsquo;+&rsquo; button and name your menu file.<img src="resourcefile.png" alt="creating a resource file">
+<img src="maekmenu.png" alt="creating a menu resource file">3. <strong>Creating the menu layout</strong>- Once the menu is created we shall find a menu layout file inside the menu subfolder of the res directory. We create a menu item search, add an icon and add the actionViewClass as <code>androidx.appcompat.widget.SearchView</code>. In our Example,</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;menu</span> <span style="color:#a6e22e">xmlns:android=</span><span style="color:#e6db74">&#34;http://schemas.android.com/apk/res/android&#34;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">xmlns:app=</span><span style="color:#e6db74">&#34;http://schemas.android.com/apk/res-auto&#34;</span><span style="color:#f92672">&gt;</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;item</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:id=</span><span style="color:#e6db74">&#34;@+id/search_top&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:title=</span><span style="color:#e6db74">&#34;Search&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">android:icon=</span><span style="color:#e6db74">&#34;@drawable/ic_baseline_search_24&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">app:showAsAction=</span><span style="color:#e6db74">&#34;always&#34;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">app:actionViewClass=</span><span style="color:#e6db74">&#34;androidx.appcompat.widget.SearchView&#34;</span> <span style="color:#f92672">/&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/menu&gt;</span>
+</span></span></code></pre></div><p>the <code>app:showAsAction=&quot;always&quot;</code> anchors the search icon to the topbar.
+4. <strong>Add bindings and set adapter for the listview</strong>- As above we add the necessary bindings and set the adapters to the list view.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onCreate</span>(savedInstanceState: Bundle?) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">super</span>.onCreate(savedInstanceState)  
+</span></span><span style="display:flex;"><span>    binding = ActivityTopBarSearchBinding.inflate(layoutInflater)  
+</span></span><span style="display:flex;"><span>    setContentView(binding.root)  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> adapter = ArrayAdapter(<span style="color:#66d9ef">this</span>, android.R.layout.simple_list_item_1, names)  
+</span></span><span style="display:flex;"><span>    binding.topBarLstView.adapter = adapter  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="5">
+<li><strong>Add the menu to the topBar</strong>- We override the onCreateOptionsMenu to pass our menu by-</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onCreateOptionsMenu</span>(menu: Menu?): Boolean {  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//infltate the menu
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    menuInflater.inflate(R.menu.topbarmenu, menu)  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//find the searchitem
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> search = menu<span style="color:#f92672">?.</span>findItem(R.id.search_top)  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//casting the searchview
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> searchView = search<span style="color:#f92672">?.</span>actionView <span style="color:#66d9ef">as</span> SearchView  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//enables a submit button
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    searchView.isSubmitButtonEnabled = <span style="color:#66d9ef">true</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//listens to changes in the searchview
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    searchView.setOnQueryTextListener(<span style="color:#66d9ef">this</span>)  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span>.onCreateOptionsMenu(menu)  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>We will find that there is an error at the context passed to <code>setOnQueryTextListener</code> we hover over it and let the class implement the interface and select the functions to be implemented.</strong><img src="topbarimplement.png" alt="implement members">
+6. <strong>Filter the list view on queries</strong> - As in the 1st example the <code>onQueryTextSubmit</code> will apply the filter logic on query submit and <code>onQueryTextChange</code> will apply the filter logic on text change. We simply filter the strings as follows-</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextSubmit</span>(query: String?): Boolean {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(query <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>){  
+</span></span><span style="display:flex;"><span>	    adapter.filter.filter(query)
+</span></span><span style="display:flex;"><span>	}  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextChange</span>(newText: String?): Boolean {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(newText <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>){  
+</span></span><span style="display:flex;"><span>	    adapter.filter.filter(newText)
+</span></span><span style="display:flex;"><span>	}  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="7">
+<li>the finished code should look something like this-</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TopBarSearch</span> : AppCompatActivity(), SearchView.OnQueryTextListener {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> names = listOf(<span style="color:#e6db74">&#34;Bayern Munich&#34;</span>, <span style="color:#e6db74">&#34;Barcelona&#34;</span>, <span style="color:#e6db74">&#34;Dortmund&#34;</span>, <span style="color:#e6db74">&#34;Real Madrid&#34;</span>, <span style="color:#e6db74">&#34;Paris Saint Germain&#34;</span>, <span style="color:#e6db74">&#34;West Ham&#34;</span>, <span style="color:#e6db74">&#34;Roma&#34;</span>, <span style="color:#e6db74">&#34;Chelsea&#34;</span>, <span style="color:#e6db74">&#34;Wigan Athletic&#34;</span>, <span style="color:#e6db74">&#34;Charlton&#34;</span>, <span style="color:#e6db74">&#34;Saint Ettiene&#34;</span>, <span style="color:#e6db74">&#34;Liverpool&#34;</span>)  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">lateinit</span> <span style="color:#66d9ef">var</span> adapter: ArrayAdapter&lt;String&gt;  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">lateinit</span> <span style="color:#66d9ef">var</span> binding: ActivityTopBarSearchBinding  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onCreate</span>(savedInstanceState: Bundle?) {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>.onCreate(savedInstanceState)  
+</span></span><span style="display:flex;"><span>        setContentView(R.layout.activity_top_bar_search)  
+</span></span><span style="display:flex;"><span>        binding = ActivityTopBarSearchBinding.inflate(layoutInflater)  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> rec: ListView = findViewById(R.id.topBarLstView)  
+</span></span><span style="display:flex;"><span>        adapter = ArrayAdapter(<span style="color:#66d9ef">this</span>, android.R.layout.simple_list_item_1, names)  
+</span></span><span style="display:flex;"><span>        rec.adapter = adapter
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onCreateOptionsMenu</span>(menu: Menu?): Boolean {  
+</span></span><span style="display:flex;"><span>        menuInflater.inflate(R.menu.topmenu, menu)  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> search = menu<span style="color:#f92672">?.</span>findItem(R.id.search_top)  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> searchView = search<span style="color:#f92672">?.</span>actionView <span style="color:#66d9ef">as</span> SearchView  
+</span></span><span style="display:flex;"><span>        searchView.isSubmitButtonEnabled = <span style="color:#66d9ef">true</span>  
+</span></span><span style="display:flex;"><span>        searchView.setOnQueryTextListener(<span style="color:#66d9ef">this</span>)  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span>.onCreateOptionsMenu(menu)  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextSubmit</span>(query: String?): Boolean {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(query <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>){  
+</span></span><span style="display:flex;"><span>            adapter.filter.filter(query)  
+</span></span><span style="display:flex;"><span>        }        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">onQueryTextChange</span>(newText: String?): Boolean {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(newText <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>){  
+</span></span><span style="display:flex;"><span>            adapter.filter.filter(newText)  
+</span></span><span style="display:flex;"><span>        }        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="topbarini.png" alt="topbar">
+<img src="topbaract.png" alt="topbaraction"></p>
+<h2 id="extensions">Extensions</h2>
+<ol>
+<li>If you want to make a custom filterable adapter see <a href="https://spapas.github.io/2019/04/05/android-custom-filter-adapter/">here</a></li>
+</ol>
+<h2 id="precautions">Precautions</h2>
+<ol>
+<li>If you are copy-pasting the please remember to import the binding packages.</li>
+<li>SearchView is implemented in androidx and in legacy. Be careful when referring to either.</li>
+<li>when following this tutorial remember to create list of strings not array. This might cause issues</li>
+</ol>
+<h2 id="resources">Resources</h2>
+<ol>
+<li><a href="https://developer.android.com/reference/android/widget/AutoCompleteTextView#getOnItemClickListener()">AutoCompleteTextView Android Docs</a></li>
+<li><a href="https://developer.android.com/reference/android/widget/SearchView">SearchView</a></li>
+<li><a href="https://www.geeksforgeeks.org/autocompletetextview-in-kotlin/">AutoCompleteTextView Tutorial</a></li>
+<li><a href="https://www.youtube.com/watch?v=eAklF8OUdls">Youtube tutorial for SearchView</a></li>
+<li><a href="https://www.youtube.com/watch?v=eAklF8OUdls">Youtube tutorial for Autocompletetextview</a></li>
+<li><a href="https://www.youtube.com/watch?v=M3UDh9mwBd8">Search in Toolbar</a></li>
+</ol>
+<h2 id="github-for-example-project">GitHub for example project</h2>
+<p><a href="https://github.com/sinhSlumbering/Search-View-Tutorial">Repo for Example Project</a></p>
+
+    </div>
+  </article>
+
+  
+  
+
+
+
+
+
+
+  <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+      </ul>
+    </div>
+
+    
+    <div id="toc-footer" style="display: none">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#set-up">Set up</a>
+      <ul>
+        <li><a href="#enable-viewbinding">Enable viewBinding</a></li>
+      </ul>
+    </li>
+    <li><a href="#using-this-guide">Using this guide</a>
+      <ul>
+        <li><a href="#example-project">Example project</a></li>
+      </ul>
+    </li>
+    <li><a href="#search-view-in-main-layout-of-the-activity">Search View in main layout of the activity</a></li>
+    <li><a href="#autocompletetextview-with-dropdown">AutocompleteTextView with dropdown</a></li>
+    <li><a href="#search-view-in-top-bar">Search View in Top Bar</a></li>
+    <li><a href="#extensions">Extensions</a></li>
+    <li><a href="#precautions">Precautions</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#github-for-example-project">GitHub for example project</a></li>
+  </ul>
+</nav>
+    </div>
+    
+
+    <div id="share-footer" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f" aria-label="Facebook">
+      <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&text=SearchTutorial" aria-label="Twitter">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&title=SearchTutorial" aria-label="Linkedin">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&is_video=false&description=SearchTutorial" aria-label="Pinterest">
+      <i class="fab fa-pinterest fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=SearchTutorial&body=Check out this article: https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f" aria-label="Email">
+      <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&title=SearchTutorial" aria-label="Pocket">
+      <i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&title=SearchTutorial" aria-label="reddit">
+      <i class="fab fa-reddit fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&name=SearchTutorial&description=Search%20Views%20in%20Android%20In%20this%20tutorial%20we%20will%20show%20a%20few%20simple%20ways%20to%20implement%20search%20in%20your%20app.%20There%20are%20a%20lot%20of%20ways%20to%20implement%20search%20functionalities%2c%20each%20with%20it%26rsquo%3bs%20strengths%20and%20weaknesses%20but%20we%20shall%20focus%20on%20the%20core%20functionalities%20of%20the%20search%20views.%0aPrerequisites%20This%20tutorial%20is%20done%20in%20Kotlin%2c%20but%20you%20should%20be%20able%20to%20easily%20implement%20these%20ideas%20in%20java.%20The%20Minimum%20SDK%20was%20selected%20as%20API%2029%20Some%20knowledge%20of%20view%20layouts%20in%20android." aria-label="Tumblr">
+      <i class="fab fa-tumblr fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fsinhSlumbering.github.io%2fposts%2fsearchtutorial%2f&t=SearchTutorial" aria-label="Hacker News">
+      <i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      
+        <a id="menu-toggle" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;" aria-label="Menu">
+          <i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+        <a id="toc-toggle" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;" aria-label="TOC">
+          <i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share-toggle" class="icon" href="#" onclick="$('#share-footer').toggle();return false;" aria-label="Share">
+          <i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" aria-label="Top of Page">
+          <i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+
+  <footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; 2022  shrekSwamp 
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+
+  </div>
+</body>
+
+<link rel="stylesheet" href=/lib/font-awesome/css/all.min.css>
+<script src=/lib/jquery/jquery.min.js></script>
+<script src=/js/main.js></script>
+
+<script src=/js/code-copy.js></script>
+
+
+
+
+</html>
